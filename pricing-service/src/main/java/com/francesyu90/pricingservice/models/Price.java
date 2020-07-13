@@ -1,11 +1,17 @@
-package com.udacity.pricing.domain.price;
+package com.francesyu90.pricingservice.models;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
-/**
- * Represents the price of a given vehicle, including currency.
- */
+@Entity
 public class Price {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     private String currency;
     private BigDecimal price;
@@ -42,5 +48,14 @@ public class Price {
 
     public void setVehicleId(Long vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    @Override
+    public String toString() {
+        return "Price{" +
+                "currency='" + currency + '\'' +
+                ", price=" + price +
+                ", vehicleId=" + vehicleId +
+                '}';
     }
 }
