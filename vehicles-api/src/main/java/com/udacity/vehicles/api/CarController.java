@@ -73,9 +73,10 @@ class CarController {
     @PostMapping
     ResponseEntity<?> post(@Valid @RequestBody Car car) throws URISyntaxException {
 
-        this.carService.save(car);
+        Car savedCar = this.carService.save(car);
 
-        Resource<Car> resource = assembler.toResource(car);
+        Resource<Car> resource = assembler.toResource(savedCar);
+
         return ResponseEntity.created(new URI(resource.getId().expand().getHref())).body(resource);
     }
 
@@ -90,9 +91,9 @@ class CarController {
 
         car.setId(id);
 
-        this.carService.save(car);
+        Car savedCar = this.carService.save(car);
 
-        Resource<Car> resource = assembler.toResource(car);
+        Resource<Car> resource = assembler.toResource(savedCar);
         return ResponseEntity.ok(resource);
     }
 
