@@ -108,6 +108,39 @@ public class CarControllerTest {
                 "content[0].condition").value(savedCar.getCondition().name()));
     }
 
+
+    /**
+     * Tests if the read operation appropriately returns a list of vehicles.
+     * @throws Exception if the read operation of the vehicle list fails
+     */
+    @Test
+    public void updateCar() throws Exception {
+
+        Car savedCar = this.getCar();
+
+        savedCar.setId(1L);
+
+        mvc.perform(
+                put(new URI("/cars/1"))
+                        .content(json.write(savedCar).getJson())
+                        .contentType(MediaType.APPLICATION_JSON_UTF8)
+                        .accept(MediaType.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("application/json;" +
+                        "charset=UTF-8"))
+                .andExpect(MockMvcResultMatchers.jsonPath(
+                        "id").value(savedCar.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath(
+                        "price").value(savedCar.getPrice()))
+                .andExpect(MockMvcResultMatchers.jsonPath(
+                        "condition").value(savedCar.getCondition().name()));
+    }
+
+
+
+
+
+
     /**
      * Tests the read operation for a single car by ID.
      * @throws Exception if the read operation for a single car fails
